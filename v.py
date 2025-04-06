@@ -7,11 +7,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from PIL import Image
 import warnings
+
 warnings.filterwarnings("ignore")
 
 # ------------------------ Load and display image ------------------------
-image = Image.open("agri.jpg")  # Updated for Streamlit deployment
-st.image(image, use_column_width=True, caption="Smart Agriculture - Crop Production Predictor")
+image = Image.open("agri.jpg")  # Make sure agri.jpg is in the same directory
+st.image(image, use_container_width=True, caption="Smart Agriculture - Crop Production Predictor")
 
 # ------------------------ Streamlit Title and Info ------------------------
 st.title("🌾 Crop Production Predictor")
@@ -67,7 +68,7 @@ if st.button("Predict Production"):
             "Area": area
         }])
 
-        # Fix: Match the column order of training data
+        # Match column order
         input_data = input_data[X.columns]
         input_scaled = scaler.transform(input_data)
         prediction = model.predict(input_scaled)[0]
