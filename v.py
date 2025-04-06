@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # ------------------------ Load and display image ------------------------
-image = Image.open("agri.jpg")  # Make sure agri.jpg is in the same directory
+image = Image.open("agri.jpg")  # Ensure this image is in the same directory
 st.image(image, use_container_width=True, caption="Smart Agriculture - Crop Production Predictor")
 
 # ------------------------ Streamlit Title and Info ------------------------
@@ -41,20 +41,23 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 model = RandomForestRegressor(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
-# ------------------------ User input ------------------------
-state_name = st.selectbox("State", label_encoders["State_Name"].classes_)
-district_name = st.selectbox("District", label_encoders["District_Name"].classes_)
-season = st.selectbox("Season", label_encoders["Season"].classes_)
-crop = st.selectbox("Crop", label_encoders["Crop"].classes_)
+# ------------------------ User input inside form ------------------------
+with st.form("prediction_form"):
+    state_name = st.selectbox("State", label_encoders["State_Name"].classes_)
+    district_name = st.selectbox("District", label_encoders["District_Name"].classes_)
+    season = st.selectbox("Season", label_encoders["Season"].classes_)
+    crop = st.selectbox("Crop", label_encoders["Crop"].classes_)
 
-crop_year = st.number_input("Crop Year", min_value=2000, max_value=2050, value=2023)
-temperature = st.number_input("Temperature (°C)", value=25.0)
-humidity = st.number_input("Humidity (%)", value=70.0)
-soil_moisture = st.number_input("Soil Moisture (%)", value=35.0)
-area = st.number_input("Area (hectares)", value=1.0)
+    crop_year = st.number_input("Crop Year", min_value=2000, max_value=2050, value=2023)
+    temperature = st.number_input("Temperature (°C)", value=25.0)
+    humidity = st.number_input("Humidity (%)", value=70.0)
+    soil_moisture = st.number_input("Soil Moisture (%)", value=35.0)
+    area = st.number_input("Area (hectares)", value=1.0)
+
+    submitted = st.form_submit_button("Predict Production")
 
 # ------------------------ Prediction ------------------------
-if st.button("Predict Production"):
+if submitted:
     try:
         input_data = pd.DataFrame([{
             "State_Name": label_encoders["State_Name"].transform([state_name])[0],
@@ -68,7 +71,7 @@ if st.button("Predict Production"):
             "Area": area
         }])
 
-        # Match column order
+        # Match training data column order
         input_data = input_data[X.columns]
         input_scaled = scaler.transform(input_data)
         prediction = model.predict(input_scaled)[0]
