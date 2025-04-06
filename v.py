@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # ------------------------ Load and display image ------------------------
-image = Image.open("C:/nandini/ragasnet/.vscode/agri.jpg")  # Replace with your image filename
+image = Image.open("agri.jpg")  # Updated for Streamlit deployment
 st.image(image, use_column_width=True, caption="Smart Agriculture - Crop Production Predictor")
 
 # ------------------------ Streamlit Title and Info ------------------------
@@ -75,4 +75,3 @@ if st.button("Predict Production"):
         st.success(f"🌾 Estimated Crop Production: **{prediction:.2f} tons**")
     except Exception as e:
         st.error(f"Error in prediction: {e}")
-
