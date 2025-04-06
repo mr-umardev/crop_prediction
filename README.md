@@ -5,7 +5,7 @@ A **Streamlit web app** that predicts estimated **crop production (in tons)** ba
 
 ## 🚀 Live Demo
 
-> Coming Soon — Deploy on [Streamlit Cloud](https://streamlit.io/cloud) or run locally (see instructions below)
+> https://cropprediction-1000.streamlit.app/ or run locally (see instructions below)
 
 ## 📌 Features
 
