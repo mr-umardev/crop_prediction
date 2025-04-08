@@ -6,4 +6,6 @@ matplotlib
 seaborn
 plotly
 pillow
+tornado==6.2
+
 
